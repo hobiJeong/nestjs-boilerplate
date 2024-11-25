@@ -13,6 +13,7 @@ async function bootstrap() {
   bootstrapService.setInterceptors(app);
   bootstrapService.setPipe(app);
   bootstrapService.setExceptionFilters(app);
+  bootstrapService.setShutdownHooks(app);
 
   await bootstrapService.startingServer(app);
 }

@@ -142,6 +142,10 @@ export class BootstrapService {
     });
   }
 
+  setShutdownHooks(app: INestApplication) {
+    app.enableShutdownHooks();
+  }
+
   async startingServer(app: INestApplication) {
     const appConfigService = app.get<IAppConfigService<Key>>(
       APP_CONFIG_SERVICE_DI_TOKEN,
