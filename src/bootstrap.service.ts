@@ -19,6 +19,7 @@ import { HttpInternalServerErrorExceptionFilter } from '@src/libs/exceptions/ser
 import { HttpProcessErrorExceptionFilter } from '@src/libs/exceptions/server-errors/filters/http-process-error-exception.filter';
 import { HttpRemainderExceptionFilter } from '@src/libs/exceptions/server-errors/filters/http-remainder-exception.filter';
 import { COMMON_ERROR_CODE } from '@src/libs/exceptions/types/errors/common/common-error-code.constant';
+import { ContextInterceptor } from '@src/libs/interceptors/context/context.interceptor';
 import { PaginationInterceptor } from '@src/libs/interceptors/pagination/pagination.interceptor';
 import { CustomValidationPipe } from '@src/libs/pipes/custom-validation.pipe';
 
@@ -44,6 +45,7 @@ export class BootstrapService {
     app.useGlobalInterceptors(
       new ClassSerializerInterceptor(app.get(Reflector)),
       app.get<PaginationInterceptor>(PaginationInterceptor),
+      app.get<ContextInterceptor>(ContextInterceptor),
     );
   }
 

@@ -1,7 +1,7 @@
 import { TransactionHost } from '@nestjs-cls/transactional';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
+import { PrismaService } from '@src/libs/core/prisma/services/prisma.service';
 import { RequestContext } from 'nestjs-request-context';
-import { CustomPrismaClient } from 'src/prisma/types/type';
 
 /**
  * Setting some isolated context for each request.
@@ -10,7 +10,7 @@ import { CustomPrismaClient } from 'src/prisma/types/type';
 export class AppRequestContext extends RequestContext {
   requestId!: string;
   transactionConnection?: TransactionHost<
-    TransactionalAdapterPrisma<CustomPrismaClient>
+    TransactionalAdapterPrisma<PrismaService>
   >; // For global transactions
 }
 
@@ -30,7 +30,7 @@ export class RequestContextService {
   }
 
   static getTransactionConnection():
-    | TransactionHost<TransactionalAdapterPrisma<CustomPrismaClient>>
+    | TransactionHost<TransactionalAdapterPrisma<PrismaService>>
     | undefined {
     const ctx = this.getContext();
     return ctx.transactionConnection;
@@ -38,7 +38,7 @@ export class RequestContextService {
 
   static setTransactionConnection(
     transactionConnection?: TransactionHost<
-      TransactionalAdapterPrisma<CustomPrismaClient>
+      TransactionalAdapterPrisma<PrismaService>
     >,
   ): void {
     const ctx = this.getContext();
