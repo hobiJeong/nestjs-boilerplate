@@ -1,14 +1,6 @@
 import { Prisma } from '@prisma/client';
-import {
-  DynamicModelExtensionThis,
-  InternalArgs,
-} from '@prisma/client/runtime/library';
+import { DefaultArgs } from '@prisma/client/runtime/library';
 
-export type ModelNames = 'Post' | 'User';
-
-export type Model<T extends ModelNames> = DynamicModelExtensionThis<
-  Prisma.TypeMap<InternalArgs>,
-  T,
-  object,
-  object
->;
+export type Model =
+  | Prisma.UserDelegate<DefaultArgs>
+  | Prisma.PostDelegate<DefaultArgs>;

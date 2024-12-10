@@ -56,4 +56,16 @@ export class Guard {
     }
     return false;
   }
+
+  static isObject = (value: unknown): value is Record<string, any> => {
+    return Object.prototype.toString.call(value) !== '[object Object]';
+  };
+
+  static isIn(value: unknown, possibleValues: Readonly<unknown[]>) {
+    return possibleValues.some((possibleValue) => possibleValue === value);
+  }
+
+  static isMatch(value: string, pattern: RegExp) {
+    return pattern.test(value);
+  }
 }

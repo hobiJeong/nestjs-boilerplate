@@ -1,6 +1,7 @@
 // Root
-const postsRoot = `posts`;
+const authRoot = `auth`;
 const usersRoot = `users`;
+const postsRoot = `posts`;
 
 // Api Versions
 const v1 = 'v1';
@@ -8,7 +9,11 @@ const v1 = 'v1';
 export const routesV1 = {
   version: v1,
 
-  user: {
+  auth: {
+    root: authRoot,
+  },
+
+  users: {
     root: usersRoot,
   } as const,
 

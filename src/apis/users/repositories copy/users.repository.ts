@@ -1,3 +1,13 @@
+import { BaseRepository } from '@libs/db/base.repository';
+import { Injectable } from '@nestjs/common';
+import { PostEntity } from '@modules/posts/domain/post.entity';
+import { EventBus } from '@nestjs/cqrs';
+import { PostMapper } from '@modules/posts/mappers/post.mapper';
+import { AggregateID } from '@libs/ddd/entity.base';
+import { UsersRepositoryPort } from '@src/apis/users/repositories copy/users.repository-port';
+import { Model } from '@src/libs/db/types/db.type';
+import { PrismaService } from '@src/libs/core/prisma/services/prisma.service';
+
 import { AggregateID } from '@libs/ddd/entity.base';
 import { EventBus } from '@nestjs/cqrs';
 import { Model } from '@src/libs/db/types/db.type';
@@ -5,6 +15,8 @@ import { AggregateRoot } from '@src/libs/ddd/aggregate-root.base';
 import { Mapper } from '@src/libs/ddd/mapper.interface';
 import { RepositoryPort } from '@src/libs/ddd/repository.port';
 import { z } from 'zod';
+import { Prisma } from '@prisma/client';
+import { DefaultArgs } from '@prisma/client/runtime/library';
 
 export const baseSchema = z
   .object({
@@ -16,16 +28,17 @@ export const baseSchema = z
 
 export type BaseModel = z.TypeOf<typeof baseSchema>;
 
-export abstract class BaseRepository<
-  Aggregate extends AggregateRoot<any>,
-  DbModel extends BaseModel,
-> implements RepositoryPort<Aggregate>
-{
-  protected constructor(
-    protected readonly model: Model,
-    protected readonly mapper: Mapper<Aggregate, DbModel>,
-    protected readonly eventBus: EventBus,
-  ) {}
+@Injectable()
+export class UsersRepository implements UsersRepositoryPort {
+  private readonly user: Prisma.UserDelegate<DefaultArgs>;
+
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly eventBus: EventBus,
+    private readonly usersMapper: UserMapper,
+  ) {
+    this.user = prisma.user;
+  }
 
   async findOneById(id: bigint): Promise<Aggregate | undefined> {
     const record = await this.model.;
@@ -72,5 +85,19 @@ export abstract class BaseRepository<
     });
 
     return this.mapper.toEntity(updatedRecord);
+  }
+
+  async findOneByIdAndUserId(
+    id: AggregateID,
+    userId: AggregateID,
+  ): Promise<PostEntity | undefined> {
+    const post = await this.postModel.findUnique({
+      where: {
+        id,
+        userId,
+      },
+    });
+
+    return post ? this.mapper.toEntity(post) : undefined;
   }
 }
