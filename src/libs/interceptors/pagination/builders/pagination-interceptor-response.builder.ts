@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { OffsetPaginationQueryDto } from '@src/libs/api/dtos/offset-pagination-query.dto';
+import { OffsetPaginationQueryDto } from '@src/libs/api/dtos/request/offset-pagination-query.dto';
 import { PAGE_SIZE } from '@src/libs/api/types/api.constant';
 import { HttpInternalServerErrorException } from '@src/libs/exceptions/server-errors/exceptions/http-internal-server-error.exception';
 import { ERROR_CODE } from '@src/libs/exceptions/types/errors/error-code.constant';
