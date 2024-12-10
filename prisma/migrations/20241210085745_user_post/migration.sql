@@ -15,7 +15,7 @@ CREATE TABLE "users" (
     "role" "UserRoleEnum" NOT NULL DEFAULT 'USER',
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deletedAt" TIMESTAMPTZ(6),
+    "deleted_at" TIMESTAMPTZ(6),
 
     CONSTRAINT "pk_users" PRIMARY KEY ("id")
 );
@@ -28,7 +28,7 @@ CREATE TABLE "posts" (
     "content" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "deletedAt" TIMESTAMPTZ(6),
+    "deleted_at" TIMESTAMPTZ(6),
 
     CONSTRAINT "pk_posts" PRIMARY KEY ("id")
 );
