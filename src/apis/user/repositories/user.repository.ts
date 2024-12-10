@@ -4,7 +4,7 @@ import { PostEntity } from '@modules/posts/domain/post.entity';
 import { EventBus } from '@nestjs/cqrs';
 import { PostMapper } from '@modules/posts/mappers/post.mapper';
 import { AggregateID } from '@libs/ddd/entity.base';
-import { UsersRepositoryPort } from '@src/apis/users/repositories copy/users.repository-port';
+import { UserRepositoryPort } from '@src/apis/users/repositories copy/users.repository-port';
 import { Model } from '@src/libs/db/types/db.type';
 import { PrismaService } from '@src/libs/core/prisma/services/prisma.service';
 
@@ -29,7 +29,7 @@ export const baseSchema = z
 export type BaseModel = z.TypeOf<typeof baseSchema>;
 
 @Injectable()
-export class UsersRepository implements UsersRepositoryPort {
+export class UserRepository implements UserRepositoryPort {
   private readonly user: Prisma.UserDelegate<DefaultArgs>;
 
   constructor(

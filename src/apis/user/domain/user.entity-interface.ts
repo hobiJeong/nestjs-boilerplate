@@ -1,5 +1,5 @@
-import type { LoginCredential } from '@src/apis/users/domain/value-objects/login-credentials.value-object';
-import type { UserRoleUnion } from '@src/apis/users/types/user.type';
+import type { LoginCredential } from '@src/apis/user/domain/value-objects/login-credentials.value-object';
+import type { UserRoleUnion } from '@src/apis/user/types/user.type';
 
 export interface UserProps {
   nickname: string;

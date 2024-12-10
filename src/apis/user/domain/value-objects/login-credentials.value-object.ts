@@ -3,8 +3,8 @@ import {
   USER_EMAIL_REGEXP,
   USER_PASSWORD_REGEXP,
   UserRole,
-} from '@src/apis/users/types/user.const';
-import type { UserLoginTypeUnion } from '@src/apis/users/types/user.type';
+} from '@src/apis/user/types/user.const';
+import type { UserLoginTypeUnion } from '@src/apis/user/types/user.type';
 import { ValueObject } from '@src/libs/ddd/value-object.base';
 import { HttpInternalServerErrorException } from '@src/libs/exceptions/server-errors/exceptions/http-internal-server-error.exception';
 import { COMMON_ERROR_CODE } from '@src/libs/exceptions/types/errors/common/common-error-code.constant';
