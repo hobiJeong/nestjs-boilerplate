@@ -13,7 +13,6 @@ import { HttpExceptionService } from '@src/libs/exceptions/services/http-excepti
     HttpInternalServerErrorExceptionFilter,
     HttpClientErrorExceptionFilter,
     HttpPathNotFoundExceptionFilter,
-
     HttpExceptionService,
   ],
 })

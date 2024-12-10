@@ -7,10 +7,12 @@ import { ClsPluginTransactional } from '@nestjs-cls/transactional';
 import { PrismaModule } from '@src/libs/core/prisma/prisma.module';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import { PrismaService } from '@src/libs/core/prisma/services/prisma.service';
+import { ApisModule } from '@src/apis/apis.module';
 
 @Module({
   imports: [
     LibsModule,
+    ApisModule,
     ClsModule.forRoot({
       plugins: [
         new ClsPluginTransactional({
