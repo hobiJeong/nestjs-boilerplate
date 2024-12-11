@@ -103,9 +103,9 @@ export class BootstrapService {
     const YAML_PATH = 'api-docs-yaml';
 
     const config = new DocumentBuilder()
-      .setTitle('dongurami v2')
+      .setTitle('NestJS Boilerplate')
       .setDescription(
-        'dongurami v2 api</br>' +
+        'NestJS Boilerplate API</br>' +
           `<a target="_black" href="${DOMAIN}/${JSON_PATH}">json document</a></br>` +
           `<a target="_black" href="${DOMAIN}/${YAML_PATH}">yaml document</a></br>`,
       )

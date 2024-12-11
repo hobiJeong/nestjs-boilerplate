@@ -9,7 +9,7 @@ import {
 import { UserEntity } from '@src/apis/user/domain/user.entity';
 import { UserProps } from '@src/apis/user/domain/user.entity-interface';
 import { CreateEntityProps } from '@src/libs/ddd/entity.base';
-import { UserResponseDto } from '@src/apis/user/dto/responses/user.response-dto';
+import { UserResponseDto } from '@src/apis/user/dtos/response/user.response-dto';
 import { LoginCredential } from '@src/apis/user/domain/value-objects/login-credentials.value-object';
 import { baseSchema } from '@src/libs/db/base.schema';
 

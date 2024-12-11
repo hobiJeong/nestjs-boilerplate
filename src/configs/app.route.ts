@@ -11,6 +11,7 @@ export const routesV1 = {
 
   auth: {
     root: authRoot,
+    signUp: `${authRoot}/sign-up`,
   },
 
   users: {

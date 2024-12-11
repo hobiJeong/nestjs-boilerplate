@@ -8,11 +8,12 @@ import { PrismaModule } from '@src/libs/core/prisma/prisma.module';
 import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import { PrismaService } from '@src/libs/core/prisma/services/prisma.service';
 import { ApisModule } from '@src/apis/apis.module';
+import { RequestContextModule } from 'nestjs-request-context';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
-    LibsModule,
-    ApisModule,
+    RequestContextModule,
     ClsModule.forRoot({
       plugins: [
         new ClsPluginTransactional({
@@ -23,6 +24,10 @@ import { ApisModule } from '@src/apis/apis.module';
         }),
       ],
     }),
+    CqrsModule.forRoot(),
+
+    LibsModule,
+    ApisModule,
   ],
   controllers: [AppController],
   providers: [BootstrapService],
