@@ -8,19 +8,32 @@ datasource db {
 }
 
 model User {
-  id        BigInt        @id(map: "pk_users")
-  nickname  String        @unique(map: "uq_users_nickname") @db.VarChar(20)
-  loginId   String        @unique(map: "uq_users_login_id") @db.VarChar(20)
-  email     String        @unique(map: "uq_users_email") @db.VarChar(255)
-  password  String        @db.VarChar(20)
-  loginType LoginTypeEnum @map("login_type")
-  role      UserRoleEnum  @default(user)
-  createdAt DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
-  deletedAt DateTime?     @map("deleted_at") @db.Timestamptz(6)
-  posts     Post[]
+  id        BigInt       @id(map: "pk_users")
+  name      String       @unique(map: "uq_users_name") @db.VarChar(20)
+  role      UserRoleEnum @default(user)
+  createdAt DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime     @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt DateTime?    @map("deleted_at") @db.Timestamptz(6)
+
+  posts          Post[]
+  userCredential UserCredential?
 
   @@map("users")
+}
+
+model UserCredential {
+  id        BigInt        @id(map: "pk_user_credentials")
+  userId    BigInt        @unique(map: "uq_user_credentials_user_id") @map("user_id")
+  email     String        @db.VarChar(255)
+  password  String        @db.VarChar(255)
+  loginType LoginTypeEnum @map("login_type")
+  createdAt DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime      @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([email, loginType], name: "uq_user_credentials_email_login_type")
+  @@map("user_credentials")
 }
 
 model Post {
@@ -32,7 +45,7 @@ model Post {
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("posts")
 }

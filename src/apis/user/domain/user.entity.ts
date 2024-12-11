@@ -1,82 +1,40 @@
 import { AggregateRoot } from '@libs/ddd/aggregate-root.base';
-import { ImageType } from '@modules/images/const/image.const';
-import { ImageEntity } from '@modules/images/domain/image.entity';
-import { PostCreatedDomainEvent } from '@modules/posts/domain/events/post-created.event';
-import {
-  PostProps,
-  CreatePostProps,
-} from '@modules/posts/domain/post.entity-interface';
+import { UserCreatedDomainEvent } from '@src/apis/user/domain/events/user-created.event';
+import type {
+  CreateUserProps,
+  UserProps,
+} from '@src/apis/user/domain/user.entity-interface';
+import { UserRole } from '@src/apis/user/types/user.const';
+import { UserCredentialEntity } from '@src/apis/user/user-credential/domain/user-credential.entity';
+
 import { getTsid } from 'tsid-ts';
 
-export class PostEntity extends AggregateRoot<PostProps> {
-  static create(create: CreatePostProps): PostEntity {
+export class UserEntity extends AggregateRoot<UserProps> {
+  static create(create: CreateUserProps): UserEntity {
     const id = getTsid().toBigInt();
 
-    const { imagePaths, ...createProps } = create;
+    const userCredential = UserCredentialEntity.create({
+      userId: id,
+      ...create,
+    });
 
-    const props: PostProps = {
-      ...createProps,
-      likeCount: 0,
-      commentCount: 0,
+    const props: UserProps = {
+      ...create,
+      role: UserRole.USER,
+      userCredential,
       deletedAt: null,
-      user: null,
-      images: imagePaths.map((path, index) =>
-        ImageEntity.create({
-          postId: id,
-          order: index,
-          type: ImageType.POST_IMAGE,
-          path,
-        }),
-      ),
     };
 
-    const post = new PostEntity({ id, props });
+    const user = new UserEntity({ id, props });
 
-    post.addEvent(
-      new PostCreatedDomainEvent({
+    user.addEvent(
+      new UserCreatedDomainEvent({
         aggregateId: id,
-        ...props,
+        ...userCredential.getProps().loginCredential.unpack(),
       }),
     );
 
-    return post;
-  }
-
-  private updateCountColumn(
-    column: keyof Pick<PostProps, 'commentCount' | 'likeCount'>,
-    increment: boolean,
-  ) {
-    increment ? this.props[column]++ : this.props[column]--;
-  }
-
-  incrementLikeCount() {
-    this.updateCountColumn('likeCount', true);
-  }
-  decrementLikeCount() {
-    this.updateCountColumn('likeCount', false);
-  }
-  incrementCommentCount() {
-    this.updateCountColumn('commentCount', true);
-  }
-  decrementCommentCount() {
-    this.updateCountColumn('commentCount', false);
-  }
-
-  private appendImages(imagePaths: string[] | []) {
-    const images = imagePaths.map((path, index) =>
-      ImageEntity.create({
-        postId: this.id,
-        order: index,
-        type: ImageType.POST_IMAGE,
-        path,
-      }),
-    );
-
-    this.setImages(images);
-  }
-
-  private setImages(images: ImageEntity[] | []) {
-    this.props.images = images;
+    return user;
   }
 
   public validate(): void {}

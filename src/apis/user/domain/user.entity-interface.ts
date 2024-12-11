@@ -1,14 +1,16 @@
-import type { LoginCredential } from '@src/apis/user/domain/value-objects/login-credentials.value-object';
 import type { UserRoleUnion } from '@src/apis/user/types/user.type';
+import { UserCredentialEntity } from '@src/apis/user/user-credential/domain/user-credential.entity';
+import { LoginCredential } from '@src/apis/user/user-credential/domain/value-objects/login-credentials.value-object';
 
 export interface UserProps {
-  nickname: string;
-  loginCredential: LoginCredential;
+  name: string;
   role: UserRoleUnion;
   deletedAt: Date | null;
+
+  userCredential?: UserCredentialEntity;
 }
 
 export interface CreateUserProps {
-  nickname: string;
+  name: string;
   loginCredential: LoginCredential;
 }

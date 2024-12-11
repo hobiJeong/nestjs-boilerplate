@@ -8,7 +8,7 @@
 import { AggregateID } from '@libs/ddd/entity.base';
 
 export interface RepositoryPort<Entity> {
-  insert(entity: Entity | Entity[]): Promise<void>;
+  create(entity: Entity): Promise<void>;
   findOneById(id: bigint): Promise<Entity | undefined>;
   findAll(): Promise<Entity[]>;
   update(entity: Entity): Promise<Entity>;
