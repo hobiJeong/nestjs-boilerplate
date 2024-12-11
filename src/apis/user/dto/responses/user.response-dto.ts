@@ -1,5 +1,7 @@
-import { UserRoleUnion } from '@src/apis/user/types/user.type';
-import { UserCredentialResponseDto } from '@src/apis/user/user-credential/dtos/user-credential.response-dto';
+import {
+  UserLoginTypeUnion,
+  UserRoleUnion,
+} from '@src/apis/user/types/user.type';
 import {
   BaseResponseDto,
   CreateBaseResponseDtoProps,
@@ -7,25 +9,25 @@ import {
 
 export interface CreateUserResponseDtoProps extends CreateBaseResponseDtoProps {
   readonly name: string;
+  readonly email: string;
+  readonly loginType: UserLoginTypeUnion;
   readonly role: UserRoleUnion;
-
-  readonly userCredential: UserCredentialResponseDto;
 }
 
 export class UserResponseDto extends BaseResponseDto {
   readonly name: string;
+  readonly email: string;
+  readonly loginType: UserLoginTypeUnion;
   readonly role: UserRoleUnion;
-
-  userCredential: UserCredentialResponseDto;
 
   constructor(create: CreateUserResponseDtoProps) {
     super(create);
 
-    const { name, role, userCredential } = create;
+    const { name, role, email, loginType } = create;
 
     this.name = name;
+    this.email = email;
+    this.loginType = loginType;
     this.role = role;
-
-    this.userCredential = userCredential;
   }
 }

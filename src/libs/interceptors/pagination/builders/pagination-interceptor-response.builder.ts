@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { OffsetPaginationQueryDto } from '@src/libs/api/dtos/request/offset-pagination-query.dto';
-import { PAGE_SIZE } from '@src/libs/api/types/api.constant';
+import { PageSize } from '@src/libs/api/types/api.constant';
 import { HttpInternalServerErrorException } from '@src/libs/exceptions/server-errors/exceptions/http-internal-server-error.exception';
 import { ERROR_CODE } from '@src/libs/exceptions/types/errors/error-code.constant';
 import { OffsetPaginationResponseDto } from '@src/libs/interceptors/pagination/dtos/pagination-interceptor-response.dto';
@@ -49,7 +49,7 @@ export class PaginationResponseBuilder {
     }
 
     const currentPage = Number(pageDto.page) || 1;
-    const pageSize = Number(pageDto.pageSize) || PAGE_SIZE.DEFAULT;
+    const pageSize = Number(pageDto.pageSize) || PageSize.DEFAULT;
     const nextPage =
       pageSize * currentPage < totalCount ? currentPage + 1 : null;
     const hasNext = pageSize * currentPage < totalCount;

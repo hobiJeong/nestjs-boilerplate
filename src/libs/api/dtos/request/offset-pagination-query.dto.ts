@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { transformPage } from '@src/libs/api/transformers/page.transformer';
-import { PAGE_SIZE } from '@src/libs/api/types/api.constant';
+import { PageSize } from '@src/libs/api/types/api.constant';
 
 import { Transform, Type } from 'class-transformer';
 import { IsInt, IsOptional, Max, Min } from 'class-validator';
@@ -27,13 +27,13 @@ export class OffsetPaginationQueryDto {
     type: 'number',
     format: 'integer',
     minimum: 1,
-    maximum: PAGE_SIZE.MAXIMUM,
-    default: PAGE_SIZE.DEFAULT,
+    maximum: PageSize.MAXIMUM,
+    default: PageSize.DEFAULT,
   })
   @IsOptional()
-  @Max(PAGE_SIZE.MAXIMUM)
+  @Max(PageSize.MAXIMUM)
   @Min(1)
   @IsInt()
   @Type(() => Number)
-  pageSize = PAGE_SIZE.DEFAULT;
+  pageSize = PageSize.DEFAULT;
 }
