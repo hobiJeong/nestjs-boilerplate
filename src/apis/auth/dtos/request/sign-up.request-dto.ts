@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { USER_PASSWORD_REGEXP } from '@src/apis/user/types/user.const';
+import { USER_PASSWORD_REGEXP } from '@src/apis/user/types/user.constant';
 import { IsEmail, Length, Matches } from 'class-validator';
 
 export class SignUpRequestBodyDto {

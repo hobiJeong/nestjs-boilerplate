@@ -14,3 +14,8 @@ export interface CreateUserProps {
 
   loginCredential: LoginCredential;
 }
+
+export interface UpdateLoginCredentialProps {
+  email?: string;
+  password?: string;
+}

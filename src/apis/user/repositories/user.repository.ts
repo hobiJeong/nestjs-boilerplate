@@ -5,6 +5,7 @@ import { DefaultArgs } from '@prisma/client/runtime/library';
 import { UserEntity } from '@src/apis/user/domain/user.entity';
 import { UserMapper } from '@src/apis/user/mappers/user.mapper';
 import { UserRepositoryPort } from '@src/apis/user/repositories/user.repository-port';
+import { UserLoginTypeUnion } from '@src/apis/user/types/user.type';
 import { PrismaService } from '@src/libs/core/prisma/services/prisma.service';
 import { AggregateID } from '@src/libs/ddd/entity.base';
 
@@ -63,10 +64,14 @@ export class UserRepository implements UserRepositoryPort {
     return this.mapper.toEntity(updatedRecord);
   }
 
-  async findOneByEmail(email: string): Promise<UserEntity | undefined> {
+  async findOneByEmailAndLoginType(
+    email: string,
+    loginType: UserLoginTypeUnion,
+  ): Promise<UserEntity | undefined> {
     const existUser = await this.user.findFirst({
       where: {
         email,
+        loginType,
       },
     });
 

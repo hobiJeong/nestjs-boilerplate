@@ -21,6 +21,7 @@ import { Key } from '@src/libs/core/app-config/types/app-config.type';
          * @todo dns 적용하면 default 제거 및 required 로 변경
          */
         [ENV_KEY.DOMAIN]: Joi.string().default('http://localhost:3000'),
+        [ENV_KEY.HASH_ROUND]: Joi.number().required(),
       }),
       isGlobal: true,
     }),

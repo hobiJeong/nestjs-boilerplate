@@ -5,7 +5,7 @@ import {
   USER_PASSWORD_REGEXP,
   UserLoginType,
   UserRole,
-} from '@src/apis/user/types/user.const';
+} from '@src/apis/user/types/user.constant';
 import { UserEntity } from '@src/apis/user/domain/user.entity';
 import { UserProps } from '@src/apis/user/domain/user.entity-interface';
 import { CreateEntityProps } from '@src/libs/ddd/entity.base';
