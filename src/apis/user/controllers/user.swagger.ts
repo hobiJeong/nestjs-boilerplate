@@ -1,29 +1,28 @@
 import { applyDecorators, HttpStatus } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 
-import { AuthController } from '@src/apis/auth/controllers/auth.controller';
-import { IdResponseDto } from '@src/libs/api/dtos/response/id.response-dto';
+import { UserController } from '@src/apis/user/controllers/user.controller';
+import { UserResponseDto } from '@src/apis/user/dtos/response/user.response-dto';
 import { HttpBadRequestException } from '@src/libs/exceptions/client-errors/exceptions/http-bad-request.exception';
-import { HttpConflictException } from '@src/libs/exceptions/client-errors/exceptions/http-conflict.exception';
+import { HttpNotFoundException } from '@src/libs/exceptions/client-errors/exceptions/http-not-found.exception';
 import { COMMON_ERROR_CODE } from '@src/libs/exceptions/types/errors/common/common-error-code.constant';
-import { USER_ERROR_CODE } from '@src/libs/exceptions/types/errors/user/user-error-code.constant';
 import { CustomValidationError } from '@src/libs/types/custom-validation-errors.type';
 import {
   ApiOperator,
   ApiOperationOptionsWithSummary,
 } from '@src/libs/types/type';
 
-export const ApiAuth: ApiOperator<keyof AuthController> = {
-  SignUp: (
+export const ApiUser: ApiOperator<keyof UserController> = {
+  FindOne: (
     apiOperationOptions: ApiOperationOptionsWithSummary,
   ): MethodDecorator => {
     return applyDecorators(
       ApiOperation({
         ...apiOperationOptions,
       }),
-      ApiCreatedResponse({
-        description: '정상적으로 회원가입 됨.',
-        type: IdResponseDto,
+      ApiOkResponse({
+        description: '정상적으로 유저 상세 조회 됨.',
+        type: UserResponseDto,
       }),
       HttpBadRequestException.swaggerBuilder(
         HttpStatus.BAD_REQUEST,
@@ -34,11 +33,11 @@ export const ApiAuth: ApiOperator<keyof AuthController> = {
           type: CustomValidationError,
         },
       ),
-      HttpConflictException.swaggerBuilder(
-        HttpStatus.CONFLICT,
-        [USER_ERROR_CODE.ALREADY_CREATED_USER],
+      HttpNotFoundException.swaggerBuilder(
+        HttpStatus.NOT_FOUND,
+        [COMMON_ERROR_CODE.RESOURCE_NOT_FOUND],
         {
-          description: '이미 가입된 유저입니다.',
+          description: '해당 ID의 유저를 조회하지 못함.',
           type: CustomValidationError,
         },
       ),

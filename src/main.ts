@@ -7,9 +7,9 @@ async function bootstrap() {
   const bootstrapService = app.get<BootstrapService>(BootstrapService);
 
   bootstrapService.setCors(app);
-  bootstrapService.setSwagger(app);
   bootstrapService.setLogger(app);
   bootstrapService.setPathPrefix(app);
+  bootstrapService.setSwagger(app);
   bootstrapService.setInterceptors(app);
   bootstrapService.setPipe(app);
   bootstrapService.setExceptionFilters(app);

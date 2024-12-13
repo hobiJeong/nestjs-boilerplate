@@ -1,8 +1,3 @@
-export const generateNanoid = async (size?: number) => {
-  const { nanoid } = await import('nanoid');
-  return nanoid(size);
-};
-
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types */
 import { ValueObject } from '@src/libs/ddd/value-object.base';
 import { Entity } from '../ddd/entity.base';

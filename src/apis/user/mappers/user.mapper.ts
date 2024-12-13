@@ -1,11 +1,7 @@
 import { Mapper } from '@libs/ddd/mapper.interface';
 import { Injectable } from '@nestjs/common';
 import { z } from 'zod';
-import {
-  USER_PASSWORD_REGEXP,
-  UserLoginType,
-  UserRole,
-} from '@src/apis/user/types/user.constant';
+import { UserLoginType, UserRole } from '@src/apis/user/types/user.constant';
 import { UserEntity } from '@src/apis/user/domain/user.entity';
 import { UserProps } from '@src/apis/user/domain/user.entity-interface';
 import { CreateEntityProps } from '@src/libs/ddd/entity.base';
@@ -16,7 +12,7 @@ import { baseSchema } from '@src/libs/db/base.schema';
 const userSchema = baseSchema.extend({
   name: z.string().min(1).max(20),
   email: z.string().email(),
-  password: z.string().regex(USER_PASSWORD_REGEXP),
+  password: z.string().min(8),
   loginType: z.enum([UserLoginType.EMAIL]),
   role: z.enum([UserRole.ADMIN, UserRole.USER]),
   deletedAt: z.preprocess(

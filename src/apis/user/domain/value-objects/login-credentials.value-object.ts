@@ -1,8 +1,7 @@
 import { Guard } from '@libs/guard';
 import {
   USER_EMAIL_REGEXP,
-  USER_PASSWORD_REGEXP,
-  UserRole,
+  UserLoginType,
 } from '@src/apis/user/types/user.constant';
 import type { UserLoginTypeUnion } from '@src/apis/user/types/user.type';
 import { ValueObject } from '@src/libs/ddd/value-object.base';
@@ -35,16 +34,16 @@ export class LoginCredential extends ValueObject<LoginCredentialProps> {
         ctx: 'Not in email format',
       });
     }
-    if (!Guard.isMatch(props.password, USER_PASSWORD_REGEXP)) {
+    if (!Guard.lengthIsBetween(props.password, 8)) {
       throw new HttpInternalServerErrorException({
         code: COMMON_ERROR_CODE.SERVER_ERROR,
-        ctx: 'The password must be at least 8 and no more than 15 characters long, with at least one alphabetic character, a number, and a special character.',
+        ctx: 'Passwords must be at least 8 characters long',
       });
     }
-    if (!Guard.isIn(props.loginType, Object.values(UserRole))) {
+    if (!Guard.isIn(props.loginType, Object.values(UserLoginType))) {
       throw new HttpInternalServerErrorException({
         code: COMMON_ERROR_CODE.SERVER_ERROR,
-        ctx: `loginType must be ${Object.values(UserRole).join(', ')} only`,
+        ctx: `loginType must be ${Object.values(UserLoginType).join(', ')} only`,
       });
     }
   }

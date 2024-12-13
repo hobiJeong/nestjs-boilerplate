@@ -1,7 +1,7 @@
 // Root
 const authRoot = `auth`;
-const usersRoot = `users`;
-const postsRoot = `posts`;
+const userRoot = `users`;
+const postRoot = `posts`;
 
 // Api Versions
 const v1 = 'v1';
@@ -14,11 +14,12 @@ export const routesV1 = {
     signUp: `${authRoot}/sign-up`,
   },
 
-  users: {
-    root: usersRoot,
+  user: {
+    root: userRoot,
+    findOne: `${userRoot}/:id`,
   } as const,
 
-  posts: {
-    root: postsRoot,
+  post: {
+    root: postRoot,
   } as const,
 } as const;

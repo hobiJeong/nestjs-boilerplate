@@ -1,5 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
+import { ApiTags } from '@nestjs/swagger';
 import { ApiAuth } from '@src/apis/auth/controllers/auth.swagger';
 import { SignUpRequestBodyDto } from '@src/apis/auth/dtos/request/sign-up.request-dto';
 import { CreateUserCommand } from '@src/apis/user/commands/create-user/create-user.command';
@@ -8,6 +9,7 @@ import { routesV1 } from '@src/configs/app.route';
 import { IdResponseDto } from '@src/libs/api/dtos/response/id.response-dto';
 import { AggregateID } from '@src/libs/ddd/entity.base';
 
+@ApiTags('Auth')
 @Controller(routesV1.version)
 export class AuthController {
   constructor(private readonly commandBus: CommandBus) {}

@@ -12,7 +12,7 @@ interface Options {
 }
 
 @Injectable()
-export class ParsePositiveIntPipe implements PipeTransform<string> {
+export class ParsePositiveBigIntPipe implements PipeTransform<string> {
   constructor(
     @Optional()
     private readonly options: Options = {
@@ -20,7 +20,7 @@ export class ParsePositiveIntPipe implements PipeTransform<string> {
     },
   ) {}
 
-  transform(value: string, metadata: ArgumentMetadata): number | string {
+  transform(value: string, metadata: ArgumentMetadata): bigint | string {
     const { type, data } = metadata;
 
     if (!this.isPositiveNumeric(value)) {
@@ -36,7 +36,7 @@ export class ParsePositiveIntPipe implements PipeTransform<string> {
       });
     }
 
-    return this.options.transform ? parseInt(value, 10) : value;
+    return this.options.transform ? BigInt(value) : value;
   }
 
   private isPositiveNumeric(value: string): boolean {

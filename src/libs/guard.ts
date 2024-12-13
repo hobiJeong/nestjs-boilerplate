@@ -35,11 +35,12 @@ export class Guard {
 
   /**
    * Checks length range of a provided number/string/array
+   * If you don't give a max value, check if it's greater than or equal to min
    */
   static lengthIsBetween(
     value: number | string | Array<unknown>,
     min: number,
-    max: number,
+    max?: number,
   ): boolean {
     if (Guard.isEmpty(value)) {
       throw new HttpInternalServerErrorException({
@@ -51,7 +52,7 @@ export class Guard {
       typeof value === 'number'
         ? Number(value).toString().length
         : value.length;
-    if (valueLength >= min && valueLength <= max) {
+    if (valueLength >= min && max ? valueLength <= max : true) {
       return true;
     }
     return false;

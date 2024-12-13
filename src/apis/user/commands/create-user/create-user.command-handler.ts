@@ -32,6 +32,8 @@ export class CreateUserCommandHandler
       });
     }
 
+    console.log('정상');
+
     const user = await UserEntity.create({
       name: command.name,
       loginCredential: new LoginCredential({
