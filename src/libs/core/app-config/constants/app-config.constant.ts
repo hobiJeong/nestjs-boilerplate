@@ -6,6 +6,7 @@ const SERVER = {
 
 const CREDENTIAL = {
   HASH_ROUND: 'HASH_ROUND',
+  JWT_SECRET: 'JWT_SECRET',
 } as const;
 
 /**

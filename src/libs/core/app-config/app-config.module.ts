@@ -22,8 +22,8 @@ import { Key } from '@src/libs/core/app-config/types/app-config.type';
          */
         [ENV_KEY.DOMAIN]: Joi.string().default('http://localhost:3000'),
         [ENV_KEY.HASH_ROUND]: Joi.number().required(),
+        [ENV_KEY.JWT_SECRET]: Joi.string().required(),
       }),
-      isGlobal: true,
     }),
   ],
   providers: [
