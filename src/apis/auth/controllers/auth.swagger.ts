@@ -2,7 +2,7 @@ import { applyDecorators, HttpStatus } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOperation } from '@nestjs/swagger';
 
 import { AuthController } from '@src/apis/auth/controllers/auth.controller';
-import { IdResponseDto } from '@src/libs/api/dtos/response/id.response-dto';
+import { JwtResponseDto } from '@src/apis/auth/dtos/response/jwt.response-dto';
 import { HttpBadRequestException } from '@src/libs/exceptions/client-errors/exceptions/http-bad-request.exception';
 import { HttpConflictException } from '@src/libs/exceptions/client-errors/exceptions/http-conflict.exception';
 import { COMMON_ERROR_CODE } from '@src/libs/exceptions/types/errors/common/common-error-code.constant';
@@ -23,7 +23,7 @@ export const ApiAuth: ApiOperator<keyof AuthController> = {
       }),
       ApiCreatedResponse({
         description: '정상적으로 회원가입 됨.',
-        type: IdResponseDto,
+        type: JwtResponseDto,
       }),
       HttpBadRequestException.swaggerBuilder(
         HttpStatus.BAD_REQUEST,

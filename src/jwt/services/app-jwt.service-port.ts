@@ -1,4 +1,6 @@
+import { JwtPayload } from '@src/jwt/types/app-jwt.interface';
+
 export interface AppJwtServicePort {
-  sign(): any;
-  verify(): any;
+  generateAccessToken(payload: JwtPayload): string;
+  verifyAccessToken(accessToken: string): JwtPayload;
 }
