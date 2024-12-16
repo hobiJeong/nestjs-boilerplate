@@ -8,6 +8,7 @@ import { COMMON_ERROR_CODE } from '@src/libs/exceptions/types/errors/common/comm
 @Injectable()
 export class AppJwtService implements AppJwtServicePort {
   constructor(private readonly jwtService: JwtService) {}
+
   generateAccessToken(payload: JwtPayload): Promise<string> {
     return this.jwtService.signAsync(
       {

@@ -23,6 +23,10 @@ import { CqrsModule } from '@nestjs/cqrs';
           }),
         }),
       ],
+      global: true,
+      middleware: {
+        mount: true,
+      },
     }),
     CqrsModule.forRoot(),
 

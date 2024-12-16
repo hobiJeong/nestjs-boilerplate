@@ -1,3 +1,4 @@
+import { Transactional } from '@nestjs-cls/transactional';
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateUserCommand } from '@src/apis/user/commands/create-user/create-user.command';
@@ -21,6 +22,7 @@ export class CreateUserCommandHandler
     private readonly appJwtService: AppJwtServicePort,
   ) {}
 
+  @Transactional()
   async execute(command: CreateUserCommand): Promise<string> {
     const existUser = await this.userRepository.findOneByEmailAndLoginType(
       command.email,
@@ -43,6 +45,8 @@ export class CreateUserCommandHandler
     });
 
     await this.userRepository.create(user);
+
+    throw new Error();
 
     return this.appJwtService.generateAccessToken({ id: user.id });
   }
