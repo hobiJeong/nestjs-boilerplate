@@ -9,7 +9,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ENV_KEY } from '@src/libs/core/app-config/constants/app-config.constant';
-import { IAppConfigService } from '@src/libs/core/app-config/services/i-app-config-service.interface';
+import { AppConfigServicePort } from '@src/libs/core/app-config/services/app-config.service-port';
 import { APP_CONFIG_SERVICE_DI_TOKEN } from '@src/libs/core/app-config/tokens/app-config.di-token';
 import { Key } from '@src/libs/core/app-config/types/app-config.type';
 import { HttpBadRequestException } from '@src/libs/exceptions/client-errors/exceptions/http-bad-request.exception';
@@ -90,7 +90,7 @@ export class BootstrapService {
   }
 
   setSwagger(app: INestApplication) {
-    const appConfigService = app.get<IAppConfigService<Key>>(
+    const appConfigService = app.get<AppConfigServicePort<Key>>(
       APP_CONFIG_SERVICE_DI_TOKEN,
     );
 
@@ -110,7 +110,19 @@ export class BootstrapService {
           `<a target="_black" href="${DOMAIN}/${YAML_PATH}">yaml document</a></br>`,
       )
       .setVersion('0.1')
-      .addBearerAuth()
+      .addBearerAuth(
+        {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+          description: '액세스 토큰',
+        },
+        'access-token',
+      )
+      .addBasicAuth({
+        type: 'http',
+        description: 'Username에 email',
+      })
       .build();
 
     const document = SwaggerModule.createDocument(app, config, {
@@ -149,7 +161,7 @@ export class BootstrapService {
   }
 
   async startingServer(app: INestApplication) {
-    const appConfigService = app.get<IAppConfigService<Key>>(
+    const appConfigService = app.get<AppConfigServicePort<Key>>(
       APP_CONFIG_SERVICE_DI_TOKEN,
     );
 

@@ -2,6 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { BootstrapService } from '@src/bootstrap.service';
 
+declare global {
+  interface BigInt {
+    toJSON(): number;
+  }
+}
+
+BigInt.prototype.toJSON = function () {
+  return Number(this);
+};
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const bootstrapService = app.get<BootstrapService>(BootstrapService);

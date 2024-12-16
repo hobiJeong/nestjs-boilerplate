@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IAppConfigService } from '@src/libs/core/app-config/services/i-app-config-service.interface';
+import { AppConfigServicePort } from '@src/libs/core/app-config/services/app-config.service-port';
 
 import { APP_CONFIG_SERVICE_DI_TOKEN } from '@src/libs/core/app-config/tokens/app-config.di-token';
 import { Key } from '@src/libs/core/app-config/types/app-config.type';
@@ -25,7 +25,7 @@ interface LogInfo {
 export class HttpExceptionService {
   constructor(
     @Inject(APP_CONFIG_SERVICE_DI_TOKEN)
-    private readonly appConfigService: IAppConfigService<Key>,
+    private readonly appConfigService: AppConfigServicePort<Key>,
   ) {}
 
   buildResponseJson(

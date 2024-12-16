@@ -54,11 +54,15 @@ export class UserEntity extends AggregateRoot<UserProps> {
     this.props.loginCredential = newLoginCredential;
   }
 
-  private async hashPassword(password: string) {
+  private hashPassword(password: string): Promise<string> {
     return bcrypt.hash(
       password,
       +(process.env.HASH_ROUND as unknown as string),
     );
+  }
+
+  comparePassword(plainPassword: string): Promise<boolean> {
+    return bcrypt.compare(plainPassword, this.props.loginCredential.password);
   }
 
   public validate(): void {}

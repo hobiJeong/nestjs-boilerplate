@@ -1,3 +1,5 @@
+import { TransactionHost } from '@nestjs-cls/transactional';
+import { TransactionalAdapterPrisma } from '@nestjs-cls/transactional-adapter-prisma';
 import { Injectable } from '@nestjs/common';
 import { EventBus } from '@nestjs/cqrs';
 import { Prisma } from '@prisma/client';
@@ -14,11 +16,13 @@ export class UserRepository implements UserRepositoryPort {
   private readonly user: Prisma.UserDelegate<DefaultArgs>;
 
   constructor(
-    private readonly prisma: PrismaService,
+    private readonly txHost: TransactionHost<
+      TransactionalAdapterPrisma<PrismaService>
+    >,
     private readonly eventBus: EventBus,
     private readonly mapper: UserMapper,
   ) {
-    this.user = prisma.user;
+    this.user = txHost.tx.user;
   }
 
   async findOneById(id: bigint): Promise<UserEntity | undefined> {

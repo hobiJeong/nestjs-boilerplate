@@ -8,8 +8,8 @@ import { COMMON_ERROR_CODE } from '@src/libs/exceptions/types/errors/common/comm
 @Injectable()
 export class AppJwtService implements AppJwtServicePort {
   constructor(private readonly jwtService: JwtService) {}
-  generateAccessToken(payload: JwtPayload): string {
-    return this.jwtService.sign(
+  generateAccessToken(payload: JwtPayload): Promise<string> {
+    return this.jwtService.signAsync(
       {
         payload,
       },
@@ -19,9 +19,9 @@ export class AppJwtService implements AppJwtServicePort {
     );
   }
 
-  verifyAccessToken(accessToken: string): JwtPayload {
+  verifyAccessToken(accessToken: string): Promise<JwtPayload> {
     try {
-      return this.jwtService.verify(accessToken);
+      return this.jwtService.verifyAsync(accessToken);
     } catch {
       throw new HttpUnauthorizedException({
         code: COMMON_ERROR_CODE.INVALID_TOKEN,

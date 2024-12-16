@@ -1,4 +1,4 @@
-export interface IAppConfigService<Key extends string> {
+export interface AppConfigServicePort<Key extends string> {
   get: <T extends string | number>(key: Key) => T;
 
   getList: (...keys: Key[]) => (string | number)[];

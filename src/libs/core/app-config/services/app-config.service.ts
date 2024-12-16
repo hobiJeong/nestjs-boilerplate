@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { ENV_KEY } from '@src/libs/core/app-config/constants/app-config.constant';
-import { IAppConfigService } from '@src/libs/core/app-config/services/i-app-config-service.interface';
+import { AppConfigServicePort } from '@src/libs/core/app-config/services/app-config.service-port';
 import { Key } from '@src/libs/core/app-config/types/app-config.type';
 
 @Injectable()
-export class AppConfigService implements IAppConfigService<Key> {
+export class AppConfigService implements AppConfigServicePort<Key> {
   private readonly PRODUCTION = 'production';
   private readonly DEVELOPMENT = 'development';
   private readonly LOCAL = 'local';
