@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { OffsetPaginationQueryDto } from '@src/libs/api/dtos/request/offset-pagination-query.dto';
-import { PageSize } from '@src/libs/api/types/api.constant';
+import { OffsetPaginationRequestQueryDto } from '@src/libs/api/dtos/request/offset-pagination.request-query-dto';
+import { PageLimit } from '@src/libs/api/types/api.constant';
 import { HttpInternalServerErrorException } from '@src/libs/exceptions/server-errors/exceptions/http-internal-server-error.exception';
 import { ERROR_CODE } from '@src/libs/exceptions/types/errors/error-code.constant';
 import { OffsetPaginationResponseDto } from '@src/libs/interceptors/pagination/dtos/pagination-interceptor-response.dto';
@@ -15,7 +15,10 @@ export class PaginationResponseBuilder {
    * Offset-Based Pagination response builder
    * @description array type 만 허용
    */
-  offsetPaginationResponseBuild(res: Res, pageDto: OffsetPaginationQueryDto) {
+  offsetPaginationResponseBuild(
+    res: Res,
+    pageDto: OffsetPaginationRequestQueryDto,
+  ) {
     const { data } = res;
 
     if (!Array.isArray(data)) {
@@ -49,18 +52,17 @@ export class PaginationResponseBuilder {
     }
 
     const currentPage = Number(pageDto.page) || 1;
-    const pageSize = Number(pageDto.pageSize) || PageSize.DEFAULT;
-    const nextPage =
-      pageSize * currentPage < totalCount ? currentPage + 1 : null;
-    const hasNext = pageSize * currentPage < totalCount;
-    const lastPage = Math.ceil(totalCount / pageSize);
+    const limit = Number(pageDto.limit) || PageLimit.DEFAULT;
+    const nextPage = limit * currentPage < totalCount ? currentPage + 1 : null;
+    const hasNext = limit * currentPage < totalCount;
+    const lastPage = Math.ceil(totalCount / limit);
 
     return new OffsetPaginationResponseDto(
       { contents: array },
       {
         totalCount,
         currentPage,
-        pageSize,
+        limit,
         nextPage,
         hasNext,
         lastPage,

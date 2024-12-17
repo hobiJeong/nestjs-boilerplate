@@ -62,7 +62,7 @@ describe(PaginationResponseBuilder.name, () => {
         res.data = [[], 1];
 
         pageDto.page = 1;
-        pageDto.pageSize = 20;
+        pageDto.PageLimit = 20;
 
         expect(
           builder.offsetPaginationResponseBuild(res, pageDto),

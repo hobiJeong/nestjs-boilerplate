@@ -9,7 +9,7 @@ import { PostContent } from '@src/apis/post/domain/value-objects/post-content.va
 import {
   CreatePostResponseDtoProps,
   PostResponseDto,
-} from '@src/apis/post/dtos/response/post.reponse-dto';
+} from '@src/apis/post/dtos/response/post.response-dto';
 import { UserMapper, userSchema } from '@src/apis/user/mappers/user.mapper';
 import { isNil } from '@src/libs/utils/util';
 

@@ -2,10 +2,11 @@ import {
   CallHandler,
   ExecutionContext,
   Injectable,
+  MethodNotAllowedException,
   NestInterceptor,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { OffsetPaginationQueryDto } from '@src/libs/api/dtos/request/offset-pagination-query.dto';
+import { OffsetPaginationRequestQueryDto } from '@src/libs/api/dtos/request/offset-pagination.request-query-dto';
 import { PaginationResponseBuilder } from '@src/libs/interceptors/pagination/builders/pagination-interceptor-response.builder';
 import { SET_PAGINATION } from '@src/libs/interceptors/pagination/types/pagination-interceptor.constant';
 
@@ -36,12 +37,17 @@ export class PaginationInterceptor implements NestInterceptor {
         if (paginationBy === PaginationBy.Offset) {
           const request = context.switchToHttp().getRequest();
           const { query } = request;
-          const { page, pageSize }: OffsetPaginationQueryDto = query;
+          const { page, limit }: OffsetPaginationRequestQueryDto = query;
 
           return this.paginationResponseBuilder.offsetPaginationResponseBuild(
             { data },
-            { page, pageSize },
+            { page, limit },
           );
+        }
+
+        // Cursor-base pagination response
+        if (paginationBy === PaginationBy.Cursor) {
+          throw new MethodNotAllowedException('Not implemented');
         }
 
         return data;

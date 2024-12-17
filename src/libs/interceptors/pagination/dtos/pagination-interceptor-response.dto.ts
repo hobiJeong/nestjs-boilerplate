@@ -20,7 +20,7 @@ export class OffsetPaginationResponseDto {
     minimum: 1,
     format: 'integer',
   })
-  pageSize: number;
+  limit: number;
 
   @ApiProperty({
     description: '현재 페이지 번호',
@@ -81,7 +81,7 @@ export class OffsetPaginationResponseDto {
     res: { [key: string]: unknown[] },
     pageInfo: {
       totalCount: number;
-      pageSize: number;
+      limit: number;
       currentPage: number;
       nextPage: number | null;
       hasNext: boolean;
