@@ -9,7 +9,7 @@ import { UserResponseDto } from '@src/apis/user/dtos/response/user.response-dto'
 import { LoginCredential } from '@src/apis/user/domain/value-objects/login-credentials.value-object';
 import { baseSchema } from '@src/libs/db/base.schema';
 
-const userSchema = baseSchema.extend({
+export const userSchema = baseSchema.extend({
   name: z.string().min(1).max(20),
   email: z.string().email(),
   password: z.string().min(8),

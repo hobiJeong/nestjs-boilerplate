@@ -3,7 +3,7 @@ import { CommandBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { GenerateAccessTokenCommand } from '@src/apis/auth/commands/generate-access-token/generate-access-token.command';
 import { ApiAuth } from '@src/apis/auth/controllers/auth.swagger';
-import { SignUpRequestBodyDto } from '@src/apis/auth/dtos/request/sign-up.request-dto';
+import { SignUpRequestBodyDto } from '@src/apis/auth/dtos/request/sign-up.request-body-dto';
 import { JwtResponseDto } from '@src/apis/auth/dtos/response/jwt.response-dto';
 import { CreateUserCommand } from '@src/apis/user/commands/create-user/create-user.command';
 import { UserLoginType } from '@src/apis/user/types/user.constant';

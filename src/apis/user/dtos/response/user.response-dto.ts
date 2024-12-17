@@ -8,10 +8,10 @@ import {
 } from '@src/libs/api/dtos/response/base.response-dto';
 
 export interface CreateUserResponseDtoProps extends CreateBaseResponseDtoProps {
-  readonly name: string;
-  readonly email: string;
-  readonly loginType: UserLoginTypeUnion;
-  readonly role: UserRoleUnion;
+  name: string;
+  email: string;
+  loginType: UserLoginTypeUnion;
+  role: UserRoleUnion;
 }
 
 export class UserResponseDto extends BaseResponseDto {

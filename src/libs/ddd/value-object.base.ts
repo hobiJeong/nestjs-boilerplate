@@ -58,7 +58,7 @@ export abstract class ValueObject<T> {
       (this.isDomainPrimitive(props) && Guard.isEmpty(props.value))
     ) {
       throw new HttpInternalServerErrorException({
-        ctx: '',
+        ctx: 'ValueObject must not be empty.',
         code: COMMON_ERROR_CODE.SERVER_ERROR,
       });
     }

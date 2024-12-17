@@ -24,7 +24,7 @@ CREATE TABLE "posts" (
     "id" BIGINT NOT NULL,
     "user_id" BIGINT NOT NULL,
     "title" VARCHAR(255) NOT NULL,
-    "content" TEXT NOT NULL,
+    "body" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "deleted_at" TIMESTAMPTZ(6),

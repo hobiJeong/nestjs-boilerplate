@@ -1,5 +1,4 @@
 import { AggregateRoot } from '@libs/ddd/aggregate-root.base';
-import { UserCreatedDomainEvent } from '@src/apis/user/domain/events/user-created.event';
 import type {
   CreateUserProps,
   UpdateLoginCredentialProps,
@@ -11,6 +10,8 @@ import { getTsid } from 'tsid-ts';
 import bcrypt from 'bcrypt';
 import { LoginCredential } from '@src/apis/user/domain/value-objects/login-credentials.value-object';
 import { config } from 'dotenv';
+import { UserLoginCredentialUpdatedDomainEvent } from '@src/apis/user/domain/events/user-login-credential-updated.event';
+import { UserCreatedDomainEvent } from '@src/apis/user/domain/events/user-created.event';
 
 config();
 
@@ -52,6 +53,13 @@ export class UserEntity extends AggregateRoot<UserProps> {
     });
 
     this.props.loginCredential = newLoginCredential;
+
+    this.addEvent(
+      new UserLoginCredentialUpdatedDomainEvent({
+        aggregateId: this.id,
+        password: this.props.loginCredential.password,
+      }),
+    );
   }
 
   private hashPassword(password: string): Promise<string> {

@@ -28,7 +28,7 @@ model Post {
   id        BigInt    @id(map: "pk_posts")
   userId    BigInt    @map("user_id") @db.BigInt()
   title     String    @db.VarChar(255)
-  content   String    @db.Text
+  body      String    @db.Text
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
   deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)

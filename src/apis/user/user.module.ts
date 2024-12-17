@@ -29,6 +29,6 @@ const mappers: Provider[] = [UserMapper];
     ...commandHandlers,
     ...queryHandlers,
   ],
-  exports: [...repositories],
+  exports: [...repositories, ...mappers],
 })
 export class UserModule {}
