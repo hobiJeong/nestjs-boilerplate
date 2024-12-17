@@ -7,7 +7,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { OffsetPaginationQueryDto } from '@src/libs/api/dtos/request/offset-pagination-query.dto';
 import { PaginationResponseBuilder } from '@src/libs/interceptors/pagination/builders/pagination-interceptor-response.builder';
-import { SET_PAGINATION } from '@src/libs/interceptors/pagination/constants/pagination-interceptor.constant';
+import { SET_PAGINATION } from '@src/libs/interceptors/pagination/types/pagination-interceptor.constant';
 
 import { PaginationBy } from '@src/libs/interceptors/pagination/types/pagination-interceptor.enum';
 import { PaginationInterceptorArgs } from '@src/libs/interceptors/pagination/types/pagination-interceptor.type';

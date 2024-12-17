@@ -9,13 +9,16 @@ import { CreateUserCommand } from '@src/apis/user/commands/create-user/create-us
 import { UserLoginType } from '@src/apis/user/types/user.constant';
 import { routesV1 } from '@src/configs/app.route';
 import { GetUserId } from '@src/libs/api/decorators/get-user-id.decorator';
+import { SetGuardType } from '@src/libs/guards/decorators/set-guard-type.decroator';
 import { BasicTokenGuard } from '@src/libs/guards/providers/basic-auth.guard';
+import { GuardType } from '@src/libs/guards/types/guard.constant';
 
 @ApiTags('Auth')
 @Controller(routesV1.version)
 export class AuthController {
   constructor(private readonly commandBus: CommandBus) {}
 
+  @SetGuardType(GuardType.PUBLIC)
   @ApiAuth.SignUp({ summary: '회원가입 API' })
   @Post(routesV1.auth.signUp)
   async signUp(
@@ -33,6 +36,7 @@ export class AuthController {
     return new JwtResponseDto({ accessToken: result });
   }
 
+  @SetGuardType(GuardType.BASIC)
   @UseGuards(BasicTokenGuard)
   @ApiAuth.SignIn({ summary: '로그인 API' })
   @Post(routesV1.auth.signIn)

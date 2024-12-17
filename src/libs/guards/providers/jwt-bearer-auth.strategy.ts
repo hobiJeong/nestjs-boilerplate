@@ -3,7 +3,6 @@ import { PassportStrategy } from '@nestjs/passport';
 import { UserEntity } from '@src/apis/user/domain/user.entity';
 import { UserRepositoryPort } from '@src/apis/user/repositories/user.repository-port';
 import { USER_REPOSITORY_DI_TOKEN } from '@src/apis/user/tokens/di.token';
-import { JwtPayload } from '@src/jwt/types/app-jwt.interface';
 import { ENV_KEY } from '@src/libs/core/app-config/constants/app-config.constant';
 import { AppConfigServicePort } from '@src/libs/core/app-config/services/app-config.service-port';
 import { APP_CONFIG_SERVICE_DI_TOKEN } from '@src/libs/core/app-config/tokens/app-config.di-token';
@@ -27,7 +26,9 @@ export class JwtBearerAuthStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<UserEntity> {
+  async validate(jwtPayload): Promise<UserEntity> {
+    const { payload } = jwtPayload;
+
     const user = await this.userRepository.findOneById(payload.id);
 
     if (!user) {

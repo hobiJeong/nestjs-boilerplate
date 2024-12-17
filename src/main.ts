@@ -4,12 +4,12 @@ import { BootstrapService } from '@src/bootstrap.service';
 
 declare global {
   interface BigInt {
-    toJSON(): number;
+    toJSON(): string;
   }
 }
 
 BigInt.prototype.toJSON = function () {
-  return Number(this);
+  return String(this);
 };
 
 async function bootstrap() {
@@ -23,6 +23,7 @@ async function bootstrap() {
   bootstrapService.setInterceptors(app);
   bootstrapService.setPipe(app);
   bootstrapService.setExceptionFilters(app);
+  bootstrapService.setGuards(app);
   bootstrapService.setShutdownHooks(app);
 
   await bootstrapService.startingServer(app);

@@ -46,8 +46,6 @@ export class CreateUserCommandHandler
 
     await this.userRepository.create(user);
 
-    throw new Error();
-
     return this.appJwtService.generateAccessToken({ id: user.id });
   }
 }
